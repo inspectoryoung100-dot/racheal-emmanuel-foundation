@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Rachael Emmanuel Foundation</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        /* Style consistent with index.html */
+        .nav-link:hover {
+            color: #ec4899;
+        }
+        .gallery-item {
+            /* Use position relative for hover overlay */
+            position: relative; 
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Added transition for image hover effect */
+            transition: opacity 0.3s ease;
+        }
+        /* Hidden text overlay for image description on hover */
+        .gallery-item div {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(17, 24, 39, 0.8), transparent);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover div {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header (Consistent with index.html) -->
+    <header class="sticky top-0 z-40 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 md:justify-start md:space-x-10">
+                <!-- Logo/Brand -->
+                <div class="flex justify-start lg:w-0 lg:flex-1">
+                    <a href="index.html" class="text-2xl font-extrabold text-orange-600">REF</a>
+                    <span class="ml-2 text-xl font-medium text-gray-700 hidden sm:block">Gallery</span>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html#mission" class="text-base font-medium text-gray-500 nav-link">Home</a>
+                    <a href="index.html#focus" class="text-base font-medium text-gray-500 nav-link">Focus Areas</a>
+                    <a href="index.html#contact" class="text-base font-medium text-gray-500 nav-link">Contact</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <a href="index.html" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-pink-600 hover:bg-pink-700 transition duration-300">
+                        Donate Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuButton" class="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500 rounded-lg">
+                        <span class="sr-only">Open main menu</span>
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="md:hidden absolute w-full top-full left-0 bg-white shadow-lg py-2 transition-all duration-300 max-h-0 overflow-hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Home</a>
+                <a href="index.html#focus" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Focus Areas</a>
+                <a href="index.html#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Contact</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="px-5">
+                    <a href="index.html" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-pink-600 hover:bg-pink-700 transition duration-300">
+                        Donate Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Gallery Header Section -->
+        <section class="bg-orange-50 pt-16 pb-12 text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+                    Moments of Impact
+                </h1>
+                <p class="text-lg text-gray-600 font-light mb-4">
+                    See our mission in action: empowering women, supporting children, and conducting vital community health outreaches.
+                </p>
+                <i data-lucide="image-plus" class="w-8 h-8 text-pink-600 mx-auto"></i>
+            </div>
+        </section>
+
+        <!-- Image Gallery Grid -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+
+                    <!-- Image 1: PROVIDED USER IMAGE -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="uploaded:WhatsApp Image 2025-09-28 at 6.20.51 PM.jpg-101a5dae-645a-45cb-b020-3028de8884f6" 
+                             alt="Community Health Outreach" 
+                             class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Health Screening Day</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 2: Widow Empowerment (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Widow+Empowerment" alt="Widow receiving support" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Empowerment Workshop</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 3: Children's Program (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Orphans+Receiving+Gifts" alt="Children receiving gifts" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Joy in Learning</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 4: Eye Care Outreach (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Eye+Care+Screening" alt="Eye care screening in progress" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Free Eye Exams</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 5: Medical Checkup (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Blood+Sugar+Check" alt="Medical professional checking blood sugar" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Vital Health Checks</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 6: Distribution of Aid (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Food+Aid+Distribution" alt="Distribution of relief items" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Relief Distribution</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 7: Education/Training (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Skill+Acquisition+Training" alt="Adults participating in training" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Skill Acquisition</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 8: Group Photo (Placeholder) -->
+                    <div class="gallery-item rounded-lg shadow-xl aspect-square">
+                        <img src="https://placehold.co/600x600/fecaca/9f1239?text=Volunteer+Team+Photo" alt="Group photo of volunteers and beneficiaries" class="rounded-lg">
+                        <div>
+                            <p class="text-sm font-semibold">Our Dedicated Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Consistent with index.html) -->
+    <footer class="bg-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400 text-sm">
+                &copy; <span id="currentYearFooter"></span> Rachael Emmanuel Foundation. <br> Motto: In God We Trust.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation Toggle Logic ---
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            
+            // Toggle the visibility and max height for smooth transition
+            if (!isExpanded) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+            } else {
+                mobileMenu.style.maxHeight = '0';
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (link.getAttribute('href').startsWith('index.html')) {
+                    mobileMenu.style.maxHeight = '0';
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // --- Initialization ---
+        window.onload = function() {
+            // Set current year in the footer
+            document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>

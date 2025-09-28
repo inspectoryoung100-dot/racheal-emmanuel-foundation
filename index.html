@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rachael Emmanuel Foundation</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for smooth scrolling and button effects */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light background for the whole page (White/Off-white) */
+        }
+        /* Updated: Pink on hover for navigation links */
+        .nav-link:hover {
+            color: #ec4899; /* Pink hover effect (pink-600) */
+        }
+        .focus-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for the fixed "Thank You" modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Thank You Modal (Hidden by default) -->
+    <div id="thankYouModal" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center opacity-0 pointer-events-none">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm mx-4 transform transition-all scale-95 duration-300">
+            <div class="text-center">
+                <!-- Updated: Icon color changed to Pink -->
+                <i data-lucide="heart-handshake" class="w-12 h-12 text-pink-600 mx-auto mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+                <p class="text-gray-600">Your commitment helps us continue our vital mission. We appreciate your support greatly.</p>
+                <!-- Updated: Button background changed to Pink -->
+                <button onclick="hideModal()" class="mt-6 w-full px-4 py-2 bg-pink-600 text-white font-semibold rounded-lg shadow-md hover:bg-pink-700 transition duration-150">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 md:justify-start md:space-x-10">
+                <!-- Logo/Brand - Updated: Text color changed to Orange -->
+                <div class="flex justify-start lg:w-0 lg:flex-1">
+                    <a href="#" class="text-2xl font-extrabold text-orange-600">REF</a>
+                    <span class="ml-2 text-xl font-medium text-gray-700 hidden sm:block">Foundation</span>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="#mission" class="text-base font-medium text-gray-500 nav-link">Our Mission</a>
+                    <a href="#focus" class="text-base font-medium text-gray-500 nav-link">Focus Areas</a>
+                    <a href="gallery.html" class="text-base font-medium text-gray-500 nav-link">Gallery</a>
+                    <a href="#contact" class="text-base font-medium text-gray-500 nav-link">Contact</a>
+                </nav>
+
+                <!-- CTA Button - Updated: Button background changed to Orange -->
+                <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <button onclick="showModal()" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 transition duration-300">
+                        Donate Now
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button - Updated: Ring focus changed to Orange -->
+                <div class="md:hidden">
+                    <button id="mobileMenuButton" class="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500 rounded-lg">
+                        <span class="sr-only">Open main menu</span>
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="md:hidden absolute w-full top-full left-0 bg-white shadow-lg py-2 transition-all duration-300 max-h-0 overflow-hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Our Mission</a>
+                <a href="#focus" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Focus Areas</a>
+                <a href="gallery.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Gallery</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-600">Contact</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="px-5">
+                    <!-- Updated: Button background changed to Orange -->
+                    <button onclick="showModal()" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 transition duration-300">
+                        Donate Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section - Updated: Background changed to Orange -->
+        <section class="bg-orange-600 pt-16 pb-24 text-white text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+                    Rachael Emmanuel Foundation
+                </h1>
+                <p class="text-lg sm:text-xl font-light opacity-90 mb-8">
+                    Helping, Empowering, and Providing Care for the Less Privileged.
+                </p>
+                <!-- Updated: Button text changed to Orange -->
+                <button onclick="showModal()" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-orange-600 bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                    Support Our Work
+                    <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Our Mission Section -->
+        <section id="mission" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <!-- Updated: Heading color changed to Pink -->
+                    <h2 class="text-base text-pink-600 font-semibold tracking-wide uppercase mb-2">Our Core Purpose</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold text-gray-900">
+                        Vision and Aims of the Foundation
+                    </p>
+                </div>
+                <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+                    <div class="lg:col-span-2">
+                        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+                            The Rachael Emmanuel Foundation is driven by a deep commitment to compassion and community welfare. Our vision is to create a nurturing environment where the most vulnerable members of society can find support, stability, and opportunity.
+                            We believe that every individual, regardless of their circumstances, deserves to live a healthy, dignified, and empowered life. Our programs are designed to address immediate needs while fostering long-term resilience and independence.
+                        </p>
+                    </div>
+                    <!-- Updated: Blockquote colors changed to Lemon (bg) and Orange (text/border) -->
+                    <div class="lg:col-span-1 mt-8 lg:mt-0 p-6 bg-yellow-50 border-l-4 border-orange-600 rounded-lg shadow-inner">
+                        <p class="text-lg font-semibold text-orange-800 mb-4">Our Guiding Principle:</p>
+                        <blockquote class="italic text-orange-700">
+                            "To help and empower the needy and orphans, and to empower the widow women, ensuring they are not forgotten by society."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Focus Areas Section -->
+        <section id="focus" class="py-16 sm:py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <!-- Updated: Heading color changed to Pink -->
+                    <h2 class="text-base text-pink-600 font-semibold tracking-wide uppercase mb-2">Impact</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold text-gray-900">
+                        Six Pillars of Our Community Support
+                    </p>
+                    <p class="mt-4 text-lg text-gray-600">Our programs target critical areas of need to maximize positive and lasting change.</p>
+                </div>
+
+                <!-- Grid of Focus Cards -->
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                    <!-- Focus 1: Needy and Orphans - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="home" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Empowering the Needy & Orphans</h3>
+                        <p class="text-gray-600">We provide essential resources, shelter, education, and emotional support to vulnerable children and families in desperate need.</p>
+                    </div>
+
+                    <!-- Focus 2: Widow Women - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="hand-helping" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Widow Empowerment</h3>
+                        <p class="text-gray-600">Our programs equip widow women with skills and financial literacy to achieve economic stability and regain independence.</p>
+                    </div>
+
+                    <!-- Focus 3: Blood Pressure Check - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="heart-pulse" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Free Blood Pressure Screening</h3>
+                        <p class="text-gray-600">Regular, accessible health checks are vital. We offer free blood pressure monitoring to manage hypertension risks.</p>
+                    </div>
+
+                    <!-- Focus 4: Blood Sugar Check - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="syringe" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Free Blood Sugar Level Check</h3>
+                        <p class="text-gray-600">We provide essential screenings for blood glucose levels, helping to detect and manage diabetes in the community.</p>
+                    </div>
+
+                    <!-- Focus 5: Eye Care - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="glasses" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Eye Exams & Free Eyeglasses</h3>
+                        <p class="text-gray-600">Restoring sight and preventing blindness by offering free eye examinations and distributing needed corrective eyeglasses.</p>
+                    </div>
+
+                    <!-- Focus 6: Deworming for Children - Updated: Icon color (Pink) and Border (Orange) -->
+                    <div class="focus-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                        <i data-lucide="baby" class="w-10 h-10 text-pink-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Children's Deworming Program</h3>
+                        <p class="text-gray-600">Focusing on preventative health for children aged 2-16, this program ensures better growth and improved immunity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-600 mb-8">
+                    Partner with us in achieving this vision. Your co-operation and support are invaluable.
+                </p>
+                <!-- Updated: Button background changed to Orange -->
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="tel:08054849474" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-orange-600 hover:bg-orange-700 transition duration-300">
+                        <i data-lucide="phone" class="mr-2 h-5 w-5"></i> Call Us
+                    </a>
+                    <a href="mailto:info@refoundation.org" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition duration-300">
+                        <i data-lucide="mail" class="mr-2 h-5 w-5"></i> Email Us
+                    </a>
+                </div>
+                <p class="mt-8 text-sm text-gray-500">
+                    <i data-lucide="map-pin" class="inline-block h-4 w-4 mr-1"></i> Plot 145, Old Otta Road, Oke-Odo, Lagos State.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400 text-sm">
+                &copy; <span id="currentYear"></span> Rachael Emmanuel Foundation. <br> Motto: In God We Trust.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation Toggle Logic ---
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            
+            // Toggle the visibility and max height for smooth transition
+            if (!isExpanded) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+            } else {
+                mobileMenu.style.maxHeight = '0';
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                // If it's an internal hash link, close the menu immediately.
+                if (link.getAttribute('href').startsWith('#')) {
+                    mobileMenu.style.maxHeight = '0';
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+                // If it's the gallery.html link, just let the navigation happen.
+            });
+        });
+
+        // --- Modal/Popup Logic for Donate Button ---
+        const modal = document.getElementById('thankYouModal');
+
+        function showModal() {
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        }
+
+        function hideModal() {
+            modal.classList.remove('opacity-100');
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- Initialization ---
+        window.onload = function() {
+            // The Lucide icons script runs automatically when loaded from the CDN.
+            // Explicitly calling lucide.createIcons() is often unnecessary and 
+            // can cause a ReferenceError if the library hasn't fully initialized.
+            
+            // Set current year in the footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>
