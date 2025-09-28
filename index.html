@@ -36,16 +36,48 @@
 </head>
 <body>
 
-    <!-- Thank You Modal (Hidden by default) -->
-    <div id="thankYouModal" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center opacity-0 pointer-events-none">
-        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm mx-4 transform transition-all scale-95 duration-300">
+    <!-- Donation Modal (Replaced "Thank You" with instructions) -->
+    <div id="donationModal" class="modal fixed inset-0 bg-gray-900 bg-opacity-80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none">
+        <div class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl max-w-lg mx-4 w-full transform transition-all duration-300 scale-95">
             <div class="text-center">
-                <!-- Updated: Icon color changed to Pink -->
-                <i data-lucide="heart-handshake" class="w-12 h-12 text-pink-600 mx-auto mb-4"></i>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-                <p class="text-gray-600">Your commitment helps us continue our vital mission. We appreciate your support greatly.</p>
-                <!-- Updated: Button background changed to Pink -->
-                <button onclick="hideModal()" class="mt-6 w-full px-4 py-2 bg-pink-600 text-white font-semibold rounded-lg shadow-md hover:bg-pink-700 transition duration-150">Close</button>
+                <!-- Icon: Piggy bank suggests saving/donating -->
+                <i data-lucide="piggy-bank" class="w-12 h-12 text-orange-600 mx-auto mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Support Our Mission</h3>
+                <p class="text-gray-600 mb-6">Thank you for choosing to donate! Please use the bank details below for a secure transfer.</p>
+
+                <!-- Bank Details Box -->
+                <div class="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200 text-left">
+                    <p class="text-sm font-semibold text-gray-500 mb-2 uppercase">Bank Transfer Details</p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-dashed pb-2">
+                            <span class="font-medium text-gray-700">Bank Name:</span>
+                            <span class="font-bold text-orange-600">Zenith Bank PLC</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-dashed pb-2">
+                            <span class="font-medium text-gray-700">Account Name:</span>
+                            <span class="font-bold text-orange-600">Rachael Emmanuel Foundation</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Account No:</span>
+                            <!-- Mock account number -->
+                            <span id="accountNumber" class="font-bold text-pink-600 text-xl tracking-wider">1234567890</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="mt-6 space-y-3 sm:space-y-0 sm:flex sm:space-x-3">
+                    <button onclick="copyAccountNo()" class="w-full sm:w-1/2 px-4 py-2 bg-pink-600 text-white font-semibold rounded-lg shadow-md hover:bg-pink-700 transition duration-150 flex items-center justify-center">
+                        <i data-lucide="copy" class="w-5 h-5 mr-2"></i> Copy Account No
+                    </button>
+                    <button onclick="hideModal()" class="w-full sm:w-1/2 px-4 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-150 flex items-center justify-center">
+                        <i data-lucide="x" class="w-5 h-5 mr-2"></i> Close
+                    </button>
+                </div>
+                
+                <!-- Copy Notification -->
+                <p id="copyNotification" class="text-sm text-green-600 mt-3 h-4 opacity-0 transition-opacity duration-300">Account number copied!</p>
+
             </div>
         </div>
     </div>
@@ -98,7 +130,7 @@
             </div>
             <div class="pt-4 pb-3 border-t border-gray-200">
                 <div class="px-5">
-                    <!-- Updated: Button background changed to Orange -->
+                    <!-- Updated: Button to call showModal() -->
                     <button onclick="showModal()" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 transition duration-300">
                         Donate Now
                     </button>
@@ -117,7 +149,7 @@
                 <p class="text-lg sm:text-xl font-light opacity-90 mb-8">
                     Helping, Empowering, and Providing Care for the Less Privileged.
                 </p>
-                <!-- Updated: Button text changed to Orange -->
+                <!-- Updated: Button to call showModal() -->
                 <button onclick="showModal()" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-orange-600 bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
                     Support Our Work
                     <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
@@ -246,47 +278,63 @@
     </footer>
 
     <script>
-        // --- Navigation Toggle Logic ---
+        // --- Navigation Toggle Logic (REMAINS THE SAME) ---
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
 
         mobileMenuButton.addEventListener('click', () => {
             const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
             
-            // Toggle the visibility and max height for smooth transition
             if (!isExpanded) {
-                // Ensure max-height is calculated based on current content height
                 mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
                 mobileMenuButton.setAttribute('aria-expanded', 'true');
             } else {
-                // Collapse the menu
                 mobileMenu.style.maxHeight = '0';
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
             }
         });
 
-        // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobileMenu a').forEach(link => {
             link.addEventListener('click', () => {
-                // Collapse the menu when any link is clicked inside it
                 mobileMenu.style.maxHeight = '0';
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // --- Modal/Popup Logic for Donate Button ---
-        const modal = document.getElementById('thankYouModal');
+        // --- Donation Modal Logic ---
+        const modal = document.getElementById('donationModal');
+        const copyNotification = document.getElementById('copyNotification');
 
         function showModal() {
             modal.classList.remove('pointer-events-none', 'opacity-0');
             modal.classList.add('opacity-100');
             document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+            copyNotification.classList.add('opacity-0'); // Reset notification on open
         }
 
         function hideModal() {
             modal.classList.remove('opacity-100');
             modal.classList.add('pointer-events-none', 'opacity-0');
             document.body.style.overflow = 'auto';
+        }
+
+        function copyAccountNo() {
+            const accountNumberElement = document.getElementById('accountNumber');
+            const accountNumber = accountNumberElement.textContent;
+
+            // Use execCommand for copying as navigator.clipboard might fail in some contexts (like iframes)
+            const el = document.createElement('textarea');
+            el.value = accountNumber;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Show confirmation notification
+            copyNotification.classList.remove('opacity-0');
+            setTimeout(() => {
+                copyNotification.classList.add('opacity-0');
+            }, 2000);
         }
 
         // --- Initialization ---
