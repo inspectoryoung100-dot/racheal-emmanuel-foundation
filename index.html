@@ -17,7 +17,6 @@
             font-family: 'Inter', sans-serif;
             background-color: #f7f9fc; /* Light background for the whole page (White/Off-white) */
         }
-        /* Updated: Pink on hover for navigation links */
         .nav-link:hover {
             color: #ec4899; /* Pink hover effect (pink-600) */
         }
@@ -31,6 +30,36 @@
         /* Style for the fixed "Thank You" modal */
         .modal {
             transition: opacity 0.3s ease-in-out;
+        }
+
+        /* --- Hero Animations --- */
+        
+        /* Keyframes for the text to slide up smoothly */
+        @keyframes slideInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            /* Use a smooth bezier curve for a professional feel */
+            animation: slideInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+            opacity: 0; /* Start hidden */
+        }
+        /* Staggered delays for text and button */
+        .h1-delay { animation-delay: 0.1s; }
+        .p-delay { animation-delay: 0.4s; }
+        .btn-delay { animation-delay: 0.7s; }
+
+        /* Keyframes for a gentle vertical background float */
+        @keyframes gentleFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px); /* Very subtle vertical movement */
+            }
+        }
+        .animate-float-bg {
+            animation: gentleFloat 8s ease-in-out infinite; /* Slow, continuous movement */
         }
     </style>
 </head>
@@ -87,7 +116,7 @@
     <header class="sticky top-0 z-40 bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4 md:justify-start md:space-x-10">
-                <!-- Logo/Brand - Updated: Text color changed to Orange -->
+                <!-- Logo/Brand -->
                 <div class="flex justify-start lg:w-0 lg:flex-1">
                     <a href="#" class="text-2xl font-extrabold text-orange-600">REF</a>
                     <span class="ml-2 text-xl font-medium text-gray-700 hidden sm:block">Foundation</span>
@@ -102,14 +131,14 @@
                     <a href="#contact" class="text-base font-medium text-gray-500 nav-link">Contact</a>
                 </nav>
 
-                <!-- CTA Button - Updated: Button background changed to Orange -->
+                <!-- CTA Button -->
                 <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                     <button onclick="showModal()" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 transition duration-300">
                         Donate Now
                     </button>
                 </div>
 
-                <!-- Mobile Menu Button - Updated: Ring focus changed to Orange -->
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
                     <button id="mobileMenuButton" class="bg-white p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500 rounded-lg">
                         <span class="sr-only">Open main menu</span>
@@ -140,17 +169,18 @@
     </header>
 
     <main>
-        <!-- Hero Section - Updated: Background changed to Orange -->
-        <section class="bg-orange-600 pt-16 pb-24 text-white text-center">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+        <!-- Hero Section - ANIMATED -->
+        <section class="bg-orange-600 pt-16 pb-24 text-white text-center relative overflow-hidden">
+            <!-- The float animation is applied to this container, moving all content subtly -->
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-float-bg">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-slide-in h1-delay">
                     Rachael Emmanuel Foundation
                 </h1>
-                <p class="text-lg sm:text-xl font-light opacity-90 mb-8">
+                <p class="text-lg sm:text-xl font-light opacity-90 mb-8 animate-slide-in p-delay">
                     Helping, Empowering, and Providing Care for the Less Privileged.
                 </p>
-                <!-- Updated: Button to call showModal() -->
-                <button onclick="showModal()" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-orange-600 bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                <!-- Button is also animated to slide in -->
+                <button onclick="showModal()" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-orange-600 bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105 animate-slide-in btn-delay">
                     Support Our Work
                     <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
                 </button>
@@ -278,7 +308,7 @@
     </footer>
 
     <script>
-        // --- Navigation Toggle Logic (REMAINS THE SAME) ---
+        // --- Navigation Toggle Logic (FIXED FOR MOBILE VIEW) ---
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -286,7 +316,9 @@
             const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
             
             if (!isExpanded) {
-                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                // FIXED: Setting a fixed height (e.g., 400px) instead of calculating scrollHeight, 
+                // which is more reliable for transition effects when the element starts hidden.
+                mobileMenu.style.maxHeight = "400px"; 
                 mobileMenuButton.setAttribute('aria-expanded', 'true');
             } else {
                 mobileMenu.style.maxHeight = '0';
@@ -294,6 +326,7 @@
             }
         });
 
+        // Ensure links close the menu when clicked
         document.querySelectorAll('#mobileMenu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.style.maxHeight = '0';
